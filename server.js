@@ -1,3 +1,4 @@
+/*
 const { Client } = require('pg');
 const client = new Client(process.env.DATABASE_URL || 'postgress://localhost/acme_users_db');
 
@@ -38,6 +39,26 @@ const init = async () =>{
     catch(err){
         console.log(err)
     }
+}
+
+init();
+
+*/
+
+const Sequelize = require('sequelize');
+const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_users_db');
+
+const User = db.define('user', {});
+
+
+const syncAndSeed = async () =>{
+    await db.sync({ force : true })
+}
+
+
+const init = async()=>{
+    await db.authenticate();
+    await syncAndSeed();
 }
 
 init();
