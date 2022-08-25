@@ -46,19 +46,27 @@ init();
 */
 
 const Sequelize = require('sequelize');
+const { STRING } = Sequelize;
 const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_users_db');
 
-const User = db.define('user', {});
+const User = db.define('user', {
+    email: {
+        type: STRING, 
+        allowNull: false
+    }
+});
 
 
 const syncAndSeed = async () =>{
     await db.sync({ force : true })
+    await User.create({email: 'moe@gmail.com'})
 }
 
 
 const init = async()=>{
     await db.authenticate();
     await syncAndSeed();
+    console.log(await  User.findAll())
 }
 
 init();
