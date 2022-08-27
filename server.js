@@ -5,6 +5,9 @@ const path = require('path')
 
 app.get('/styles.css', (req, res) => res.sendFile(path.join(__dirname,'styles.css')));
 
+app.use(express.urlencoded({exteded: false}))
+
+
 app.get('/', (req, res, next)=>{
     try{
         res.redirect('/users')
@@ -26,7 +29,8 @@ app.get('/users', async (req, res, next)=>{
                 Users List (${users.length})
                 </h1>
                 <div class='form-users'>
-                    <form>
+                    <form method='POST'>
+                        <input name='name' placeHolder='Enter Name'/>
                         <input name='email' placeHolder='Enter Email'/>
                         <textarea name='bio' placeHolder='Enter Bio'></textarea>
                         <button>Create</button>
@@ -52,6 +56,19 @@ app.get('/users', async (req, res, next)=>{
         
         
         `);
+    }
+    catch(err){
+        next(err);
+    }
+})
+
+app.post('/users', async (req, res, next)=>{
+    try{
+        const user = await User.create({
+            name: req.body.name,
+            email: req.body.email
+        });
+        res.redirect(`/users/${user.id}`)
     }
     catch(err){
         next(err);

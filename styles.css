@@ -28,3 +28,6 @@ form{
 .vr{
     border-left: dotted black;
 }
+form > *{
+    margin: 5px;
+}
