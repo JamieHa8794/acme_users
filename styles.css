@@ -4,7 +4,15 @@ body{
 }
 li{
     list-style: none;
-    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+li >form > button{
+    /* border: none; */
+    text-align: center;
+    background-color: tan;
+    width: 20px;
+    padding: 0px;
 }
 h1 > a{
     font-size: small;
@@ -14,6 +22,7 @@ form{
     flex-direction: column;
     width: 200px;
     margin-right: 15px;
+    margin-bottom: 0px;
 }
 .form-users{
     display: flex;

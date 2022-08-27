@@ -6,7 +6,7 @@ const path = require('path')
 app.get('/styles.css', (req, res) => res.sendFile(path.join(__dirname,'styles.css')));
 
 app.use(express.urlencoded({exteded: false}))
-
+app.use(require('method-override')('_method'))
 
 app.get('/', (req, res, next)=>{
     try{
@@ -45,6 +45,9 @@ app.get('/users', async (req, res, next)=>{
                             return(`
                             <li>
                             <a href='/users/${user.id}'>${user.name}</a>
+                            <form method='POST' action='/users/${user.id}?_method=DELETE'>
+                            <button>x</button>
+                            </form>
                             </li>
                             `)
                         }).join('')}
@@ -69,6 +72,17 @@ app.post('/users', async (req, res, next)=>{
             email: req.body.email
         });
         res.redirect(`/users/${user.id}`)
+    }
+    catch(err){
+        next(err);
+    }
+})
+
+app.delete('/users/:id', async (req, res, next)=>{
+    try{
+        const user = await User.findByPk(req.params.id);
+        await user.destroy();
+        res.redirect('/users')
     }
     catch(err){
         next(err);
@@ -110,7 +124,9 @@ app.get('/users/:id', async (req, res, next)=>{
 const init = async()=>{
     try{
         await db.authenticate();
-        await syncAndSeed();
+        if(process.env.SYNC){
+            await syncAndSeed();
+        }
         const port = process.env.PORT || 3000;
         app.listen(port, ()=> console.log(`listening on port ${port}`));
     }
