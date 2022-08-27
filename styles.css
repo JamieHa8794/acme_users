@@ -4,4 +4,8 @@ body{
 }
 li{
     list-style: none;
+    padding-bottom: 10px;
+}
+h1 > a{
+    font-size: small;
 }

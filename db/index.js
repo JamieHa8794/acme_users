@@ -33,6 +33,7 @@ const syncAndSeed = async () =>{
     await User.create({name: 'Lucy', email: 'lucy@gmail.com'})
     await User.create({name: 'Larry', email: 'larry@yahoo.com'})
     await User.create({name: 'Curly', email: 'curly@hotmail.com'})
+    await User.create({name: 'Ethyl', email: 'Ethyly@aol.com'})
 
 }
 

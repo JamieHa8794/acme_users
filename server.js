@@ -23,18 +23,16 @@ app.get('/users', async (req, res, next)=>{
             </head>
             <body>
                 <h1>
-                Users ${users.length}
+                Users List (${users.length})
                 </h1>
+                <div>
+                Click to see more about:
+                </div>
                 <ul>
                 ${users.map(user =>{
                     return(`
                     <li>
-                    <div>
-                    email: ${user.email}
-                    </div>
-                    <div>
-                    bio: ${user.bio}
-                    </div>
+                    <a href='/users/${user.id}'>${user.name}</a>
                     </li>
                     `)
                 }).join('')}
@@ -44,6 +42,36 @@ app.get('/users', async (req, res, next)=>{
         
         
         `);
+    }
+    catch(err){
+        next(err);
+    }
+})
+
+app.get('/users/:id', async (req, res, next)=>{
+    try{
+        const user = await User.findByPk(req.params.id)
+        res.send(`
+            <html>
+                <head>
+                    <link rel='stylesheet' href='/styles.css'>
+                    <title>Users/${user.name}</title>
+                </head>
+                <body>
+                    <h1>
+                        ${user.name}
+                        <a href='/users'>Go back to all</a>
+                    </h1>
+                    
+                    <div>
+                    email: ${user.email}
+                    </div>
+                    <div>
+                    bio: ${user.bio}
+                    </div>
+                </body>
+            </html>
+        `)
     }
     catch(err){
         next(err);
