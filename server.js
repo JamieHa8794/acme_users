@@ -25,18 +25,28 @@ app.get('/users', async (req, res, next)=>{
                 <h1>
                 Users List (${users.length})
                 </h1>
-                <div>
-                Click to see more about:
+                <div class='form-users'>
+                    <form>
+                        <input name='email' placeHolder='Enter Email'/>
+                        <textarea name='bio' placeHolder='Enter Bio'></textarea>
+                        <button>Create</button>
+                    </form>
+                    <div class='vr'></div>
+                    <div class='Title-UserList'>
+                        <div>
+                            Click to see more about:
+                        </div>
+                        <ul>
+                        ${users.map(user =>{
+                            return(`
+                            <li>
+                            <a href='/users/${user.id}'>${user.name}</a>
+                            </li>
+                            `)
+                        }).join('')}
+                        </ul>
+                    </div>
                 </div>
-                <ul>
-                ${users.map(user =>{
-                    return(`
-                    <li>
-                    <a href='/users/${user.id}'>${user.name}</a>
-                    </li>
-                    `)
-                }).join('')}
-                </ul>
             </body>
             </html>
         

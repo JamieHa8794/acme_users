@@ -9,3 +9,22 @@ li{
 h1 > a{
     font-size: small;
 }
+form{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin-right: 15px;
+}
+.form-users{
+    display: flex;
+    justify-content: space-around;
+    margin-left: 250px;
+    margin-right: 250px;
+
+}
+.Title-UserList{
+    margin-left: 15px;
+}
+.vr{
+    border-left: dotted black;
+}

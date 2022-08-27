@@ -22,7 +22,7 @@ const User = db.define('user', {
 
 User.beforeSave( user =>{
     if(!user.bio){
-        user.bio = `${user.name}'s is a ${faker.name.jobType()} in the ${faker.name.jobArea()} field. ${faker.lorem.paragraphs(1)}`
+        user.bio = `${user.name}'s is a ${faker.name.jobType()} in the ${faker.name.jobArea()} field. ${faker.lorem.paragraphs(3)}`
     }
 })
 
